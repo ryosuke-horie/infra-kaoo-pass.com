@@ -1,5 +1,5 @@
-import { Stack, StackProps, aws_iam } from "aws-cdk-lib";
-import { Construct } from "constructs";
+import { Stack, type StackProps, aws_iam } from "aws-cdk-lib";
+import type { Construct } from "constructs";
 import * as dotenv from "dotenv";
 dotenv.config();
 

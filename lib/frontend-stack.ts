@@ -2,7 +2,7 @@ import {
 	Duration,
 	RemovalPolicy,
 	Stack,
-	StackProps,
+	type StackProps,
 	aws_cloudfront,
 	aws_cloudfront_origins,
 	aws_iam,
@@ -11,7 +11,7 @@ import {
 import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as targets from "aws-cdk-lib/aws-route53-targets";
-import { Construct } from "constructs";
+import type { Construct } from "constructs";
 
 /**
  * CloudFront + S3でホスティング用のStackを作成する
