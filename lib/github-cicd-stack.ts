@@ -79,9 +79,7 @@ export class GithubCiCdStack extends Stack {
 				new aws_iam.PolicyStatement({
 					effect: aws_iam.Effect.ALLOW,
 					actions: ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"],
-					resources: [
-						`${S3_ARN}/*`,
-					],
+					resources: [`${S3_ARN}/*`],
 				}),
 				// SSM に関する権限
 				new aws_iam.PolicyStatement({
@@ -111,9 +109,7 @@ export class GithubCiCdStack extends Stack {
 						"cloudfront:ListInvalidations",
 						"cloudfront:GetInvalidation",
 					],
-					resources: [
-						CLOUDFRONT_ARM,
-					],
+					resources: [CLOUDFRONT_ARM],
 				}),
 			],
 		});
