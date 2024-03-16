@@ -5,6 +5,8 @@ dotenv.config();
 
 const GITHUB_OWNER = process.env.GITHUB_OWNER || "";
 const GITHUB_REPO = process.env.GITHUB_REPO || "";
+const CLOUDFRONT_ARM = process.env.CLOUDFRONT_ARM || "";
+const S3_ARN = process.env.S3_ARN || "";
 const CDK_QUALIFIER = "hnb659fds"; // 既定値
 
 /**
@@ -78,7 +80,7 @@ export class GithubCiCdStack extends Stack {
 					effect: aws_iam.Effect.ALLOW,
 					actions: ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"],
 					resources: [
-						"arn:aws:s3:::frontends3withcloudfrontstac-websitebucket75c24d94-kftn5pkzomrl/*",
+						`${S3_ARN}/*`,
 					],
 				}),
 				// SSM に関する権限
@@ -110,7 +112,7 @@ export class GithubCiCdStack extends Stack {
 						"cloudfront:GetInvalidation",
 					],
 					resources: [
-						"arn:aws:cloudfront::851725614224:distribution/E12232OLJLRZP7",
+						CLOUDFRONT_ARM,
 					],
 				}),
 			],

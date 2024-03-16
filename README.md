@@ -1,14 +1,13 @@
-# Welcome to your CDK TypeScript project
+# mem-vision-cdk(infrastracture)
 
-This is a blank project for CDK development with TypeScript.
+## 初回実行
+```
+npm i
+npm run build
+cdk bootstrap --profile=mem-vision-dev
+```
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-## Useful commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+## デプロイ
+```
+cdk deploy --all --profile=mem-vision-dev
+```

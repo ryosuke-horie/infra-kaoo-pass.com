@@ -10,4 +10,4 @@ const app = new cdk.App();
 new FrontendStack(app, "FrontendStack");
 
 // GitHub Actionsによるデプロイを許可するOICDプロバイダーのデプロイ
-// new GithubCiCdStack(app, "GithubCiCdStack");
+new GithubCiCdStack(app, "GithubCiCdStack");
