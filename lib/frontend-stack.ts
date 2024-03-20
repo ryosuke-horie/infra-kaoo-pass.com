@@ -10,9 +10,9 @@ import {
 } from "aws-cdk-lib";
 import type { Construct } from "constructs";
 
-// import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
-// import * as route53 from "aws-cdk-lib/aws-route53";
-// import * as targets from "aws-cdk-lib/aws-route53-targets";
+import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
+import * as route53 from "aws-cdk-lib/aws-route53";
+import * as targets from "aws-cdk-lib/aws-route53-targets";
 
 /**
  * CloudFront + S3でホスティング用のStackを作成する
@@ -53,21 +53,21 @@ export class FrontendStack extends Stack {
 
 		// // 利用するホストゾーンをドメイン名で取得
 		// // ホストゾーンIDを取得
-		// const hostedZoneId = route53.HostedZone.fromLookup(this, "HostedZoneId", {
-		// 	domainName: "timetable-hideskick.net",
-		// });
+		const hostedZoneId = route53.HostedZone.fromLookup(this, "HostedZoneId", {
+			domainName: "kaoo-pass.com",
+		});
 
 		// // 証明書を取得
-		// const certificate = Certificate.fromCertificateArn(
-		// 	this,
-		// 	"Certificate",
-		// 	"arn:aws:acm:us-east-1:851725614224:certificate/5b4f1664-f268-4e91-9461-31cccc26f0ca",
-		// );
+		const certificate = Certificate.fromCertificateArn(
+			this,
+			"Certificate",
+			"arn:aws:acm:us-east-1:905418074681:certificate/01d9e454-018a-4063-96f8-b20ad66ea2c1",
+		);
 
 		// CloudFrontディストリビューションを作成する
 		const distribution = new aws_cloudfront.Distribution(this, "Distribution", {
-			// domainNames: ["timetable-hideskick.net"],
-			// certificate,
+			domainNames: ["kaoo-pass.com"],
+			certificate,
 			comment: "mem-vision-frontend-distribution",
 			defaultRootObject: "index.html",
 			defaultBehavior: {
@@ -84,12 +84,12 @@ export class FrontendStack extends Stack {
 		});
 
 		// // Route53レコード設定
-		// new route53.ARecord(this, "ARecord", {
-		// 	zone: hostedZoneId,
-		// 	target: route53.RecordTarget.fromAlias(
-		// 		new targets.CloudFrontTarget(distribution),
-		// 	),
-		// 	recordName: "timetable-hideskick.net",
-		// });
+		new route53.ARecord(this, "ARecord", {
+			zone: hostedZoneId,
+			target: route53.RecordTarget.fromAlias(
+				new targets.CloudFrontTarget(distribution),
+			),
+			recordName: "kaoo-pass.com",
+		});
 	}
 }
