@@ -7,9 +7,10 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "jest",
     "cdk": "cdk",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "vitest",
+    "snapshot:update": "vitest --updateSnapshot"
   },
   "devDependencies": {
     "@types/node": "20.11.19",

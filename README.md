@@ -11,3 +11,8 @@ cdk bootstrap --profile=mem-vision-dev
 ```
 cdk deploy --all --profile=mem-vision-dev
 ```
+
+## CDKの更新時にスナップショットを更新する場合
+```
+
+```
