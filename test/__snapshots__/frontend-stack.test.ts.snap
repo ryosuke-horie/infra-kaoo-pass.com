@@ -2,6 +2,16 @@
 
 exports[`FrontendStack > should create the correct resources 1`] = `
 {
+  "Mappings": {
+    "AWSCloudFrontPartitionHostedZoneIdMap": {
+      "aws": {
+        "zoneId": "Z2FDTNDATAQYW2",
+      },
+      "aws-cn": {
+        "zoneId": "Z3RFFRIM2A3IF5",
+      },
+    },
+  },
   "Parameters": {
     "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
@@ -10,10 +20,38 @@ exports[`FrontendStack > should create the correct resources 1`] = `
     },
   },
   "Resources": {
+    "ARecordE7B57761": {
+      "Properties": {
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::GetAtt": [
+              "Distribution830FAC52",
+              "DomainName",
+            ],
+          },
+          "HostedZoneId": {
+            "Fn::FindInMap": [
+              "AWSCloudFrontPartitionHostedZoneIdMap",
+              {
+                "Ref": "AWS::Partition",
+              },
+              "zoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "DUMMY",
+        "Name": "kaoo-pass.com.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
     "Distribution830FAC52": {
       "Properties": {
         "DistributionConfig": {
-          "Comment": "mem-vision-frontend-distribution",
+          "Aliases": [
+            "kaoo-pass.com",
+          ],
+          "Comment": "kaoo-pass.com",
           "DefaultCacheBehavior": {
             "AllowedMethods": [
               "GET",
@@ -59,6 +97,11 @@ exports[`FrontendStack > should create the correct resources 1`] = `
             },
           ],
           "PriceClass": "PriceClass_100",
+          "ViewerCertificate": {
+            "AcmCertificateArn": "arn:aws:acm:us-east-1:905418074681:certificate/01d9e454-018a-4063-96f8-b20ad66ea2c1",
+            "MinimumProtocolVersion": "TLSv1.2_2021",
+            "SslSupportMethod": "sni-only",
+          },
         },
       },
       "Type": "AWS::CloudFront::Distribution",

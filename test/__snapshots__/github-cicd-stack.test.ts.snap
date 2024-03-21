@@ -43,7 +43,7 @@ exports[`GithubCiCdStack > should create the correct resources 1`] = `
                 "s3:DeleteObject",
               ],
               "Effect": "Allow",
-              "Resource": "arn:aws:s3:::frontends3withcloudfrontstac-websitebucket75c24d94-kftn5pkzomrl/*",
+              "Resource": "arn:aws:s3:::frontendstack-websitebucket75c24d94-gjegy088wi5q/*",
             },
             {
               "Action": "ssm:GetParameter",
@@ -66,7 +66,7 @@ exports[`GithubCiCdStack > should create the correct resources 1`] = `
                 "cloudfront:GetInvalidation",
               ],
               "Effect": "Allow",
-              "Resource": "arn:aws:cloudfront::851725614224:distribution/E12232OLJLRZP7",
+              "Resource": "arn:aws:cloudfront::905418074681:distribution/E7STCAA1QIEGW",
             },
           ],
           "Version": "2012-10-17",

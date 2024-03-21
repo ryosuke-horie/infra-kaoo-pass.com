@@ -68,7 +68,7 @@ export class FrontendStack extends Stack {
 		const distribution = new aws_cloudfront.Distribution(this, "Distribution", {
 			domainNames: ["kaoo-pass.com"],
 			certificate,
-			comment: "mem-vision-frontend-distribution",
+			comment: "kaoo-pass.com",
 			defaultRootObject: "index.html",
 			defaultBehavior: {
 				allowedMethods: aws_cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,

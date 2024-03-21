@@ -10,7 +10,7 @@
     "cdk": "cdk",
     "prepare": "husky",
     "test": "vitest",
-    "snapshot:update": "vitest --updateSnapshot"
+    "snapshot:update": "vitest -u"
   },
   "devDependencies": {
     "@types/node": "20.11.19",
