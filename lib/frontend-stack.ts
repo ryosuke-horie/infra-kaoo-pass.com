@@ -80,14 +80,14 @@ export class FrontendStack extends Stack {
 					originAccessIdentity,
 				}),
 			},
-            // 403エラーの時に「/」に飛ばす(SPAのため、リロードや直アクセスに対策するため)
-            errorResponses: [
-                {
-                    httpStatus: 403,
-                    responseHttpStatus: 200,
-                    responsePagePath: "/",
-                },
-            ],
+			// 403エラーの時に「/」に飛ばす(SPAのため、リロードや直アクセスに対策するため)
+			errorResponses: [
+				{
+					httpStatus: 403,
+					responseHttpStatus: 200,
+					responsePagePath: "/",
+				},
+			],
 			priceClass: aws_cloudfront.PriceClass.PRICE_CLASS_100,
 		});
 
