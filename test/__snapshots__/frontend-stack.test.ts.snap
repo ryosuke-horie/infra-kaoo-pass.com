@@ -52,6 +52,13 @@ exports[`FrontendStack > should create the correct resources 1`] = `
             "kaoo-pass.com",
           ],
           "Comment": "kaoo-pass.com",
+          "CustomErrorResponses": [
+            {
+              "ErrorCode": 403,
+              "ResponseCode": 200,
+              "ResponsePagePath": "/",
+            },
+          ],
           "DefaultCacheBehavior": {
             "AllowedMethods": [
               "GET",
