@@ -10,7 +10,8 @@
     "cdk": "cdk",
     "prepare": "husky",
     "test": "vitest",
-    "snapshot:update": "vitest -u"
+    "snapshot:update": "vitest -u",
+    "lint": "npx biome check --apply ./lib"
   },
   "devDependencies": {
     "@types/node": "20.11.19",

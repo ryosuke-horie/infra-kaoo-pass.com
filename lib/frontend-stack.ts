@@ -1,11 +1,11 @@
 import {
-	Duration,
 	RemovalPolicy,
 	Stack,
 	type StackProps,
 	aws_cloudfront,
 	aws_cloudfront_origins,
 	aws_iam,
+	aws_lambda,
 	aws_s3,
 } from "aws-cdk-lib";
 import type { Construct } from "constructs";
@@ -26,12 +26,26 @@ export class FrontendStack extends Stack {
 			removalPolicy: RemovalPolicy.DESTROY,
 		});
 
+		// 画像用のS3バケットを作成する
+		const imageBucket = new aws_s3.Bucket(this, "ImageBucket", {
+			removalPolicy: RemovalPolicy.DESTROY,
+		});
+
 		// OAIを作成する
 		const originAccessIdentity = new aws_cloudfront.OriginAccessIdentity(
 			this,
 			"OriginAccessIdentity",
 			{
 				comment: "website-distribution-originAccessIdentity",
+			},
+		);
+
+		// OAIを作成する
+		const imageOriginAccessIdentity = new aws_cloudfront.OriginAccessIdentity(
+			this,
+			"ImageOriginAccessIdentity",
+			{
+				comment: "image-distribution-originAccessIdentity",
 			},
 		);
 
@@ -48,8 +62,24 @@ export class FrontendStack extends Stack {
 			resources: [`${websiteBucket.bucketArn}/*`],
 		});
 
+		// S3バケットポリシーを作成する。OAIからのみアクセス可能とする
+		const imageBucketPolicyStatement = new aws_iam.PolicyStatement({
+			// GETのみ許可
+			actions: ["s3:GetObject"],
+			effect: aws_iam.Effect.ALLOW,
+			principals: [
+				new aws_iam.CanonicalUserPrincipal(
+					imageOriginAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId,
+				),
+			],
+			resources: [`${imageBucket.bucketArn}/*`],
+		});
+
 		// S3バケットポリシーにステートメントを追加する
 		websiteBucket.addToResourcePolicy(websiteBucketPolicyStatement);
+
+		// S3バケットポリシーにステートメントを追加する
+		imageBucket.addToResourcePolicy(imageBucketPolicyStatement);
 
 		// // 利用するホストゾーンをドメイン名で取得
 		// // ホストゾーンIDを取得
@@ -80,6 +110,24 @@ export class FrontendStack extends Stack {
 					originAccessIdentity,
 				}),
 			},
+			// 画像用のビヘイビアを追加する
+			additionalBehaviors: {
+				"/images/*": {
+					origin: new aws_cloudfront_origins.S3Origin(imageBucket, {
+						originAccessIdentity: imageOriginAccessIdentity,
+					}),
+					viewerProtocolPolicy:
+						aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+					allowedMethods: aws_cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+					cachedMethods: aws_cloudfront.CachedMethods.CACHE_GET_HEAD,
+					compress: true,
+					originRequestPolicy:
+						aws_cloudfront.OriginRequestPolicy.CORS_S3_ORIGIN,
+					responseHeadersPolicy:
+						aws_cloudfront.ResponseHeadersPolicy.CORS_ALLOW_ALL_ORIGINS,
+				},
+			},
+
 			// 403エラーの時に「/」に飛ばす(SPAのため、リロードや直アクセスに対策するため)
 			errorResponses: [
 				{
@@ -99,5 +147,16 @@ export class FrontendStack extends Stack {
 			),
 			recordName: "kaoo-pass.com",
 		});
+
+		// 画像用S3へのアクセス権限を追加
+		// BackendのAPI用Lambdaを検索する
+		const apiLambdaRole = aws_iam.Role.fromRoleArn(
+			this,
+			"ApiLambdaRole",
+			"arn:aws:iam::905418074681:role/laravel-api-dev-ap-northeast-1-lambdaRole",
+		);
+
+		// API用LambdaにS3バケットへのアクセス権限を追加する
+		imageBucket.grantReadWrite(apiLambdaRole);
 	}
 }
