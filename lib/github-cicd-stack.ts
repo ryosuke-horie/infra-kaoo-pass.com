@@ -5,6 +5,7 @@ dotenv.config();
 
 const GITHUB_OWNER = process.env.GITHUB_OWNER || "";
 const GITHUB_REPO = process.env.GITHUB_REPO || "";
+const GITHUB_REPO_2 = process.env.GITHUB_REPO_2 || "";
 const CLOUDFRONT_ARM = process.env.CLOUDFRONT_ARM || "";
 const S3_ARN = process.env.S3_ARN || "";
 const CDK_QUALIFIER = "hnb659fds"; // 既定値
@@ -39,9 +40,11 @@ export class GithubCiCdStack extends Stack {
 					StringEquals: {
 						// 引受先の Audience（Client ID）を 'sts.amazonaws.com' に制限。
 						"token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-						"token.actions.githubusercontent.com:sub":
-							// トリガーを Pull Request に制限。
+						"token.actions.githubusercontent.com:sub": [
+                            // トリガーを Pull Request に制限。
 							`repo:${GITHUB_OWNER}/${GITHUB_REPO}:ref:refs/heads/main`,
+                            `repo:${GITHUB_OWNER}/${GITHUB_REPO_2}:ref:refs/heads/main`,
+                        ],
 					},
 				},
 				"sts:AssumeRoleWithWebIdentity", // 未指定だと既定で 'sts:AssumeRole' が指定されるため、指定必須。
