@@ -41,10 +41,10 @@ export class GithubCiCdStack extends Stack {
 						// 引受先の Audience（Client ID）を 'sts.amazonaws.com' に制限。
 						"token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
 						"token.actions.githubusercontent.com:sub": [
-                            // トリガーを Pull Request に制限。
+							// トリガーを Pull Request に制限。
 							`repo:${GITHUB_OWNER}/${GITHUB_REPO}:ref:refs/heads/main`,
-                            `repo:${GITHUB_OWNER}/${GITHUB_REPO_2}:ref:refs/heads/main`,
-                        ],
+							`repo:${GITHUB_OWNER}/${GITHUB_REPO_2}:ref:refs/heads/main`,
+						],
 					},
 				},
 				"sts:AssumeRoleWithWebIdentity", // 未指定だと既定で 'sts:AssumeRole' が指定されるため、指定必須。
