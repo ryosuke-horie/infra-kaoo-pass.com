@@ -3,6 +3,7 @@ import * as cdk from "aws-cdk-lib";
 import { AdminFrontendStack } from "../lib/admin-frontend-stack";
 import { FrontendStack } from "../lib/frontend-stack";
 import { GithubCiCdStack } from "../lib/github-cicd-stack";
+import { MypageFrontendStack } from "../lib/mypage-frontend-stack";
 
 // cdkによるアプリケーション定義
 const app = new cdk.App();
@@ -13,6 +14,9 @@ new FrontendStack(app, "FrontendStack", { env });
 
 // 管理サイトフロントスタック
 new AdminFrontendStack(app, "AdminFrontendStack", { env });
+
+// 会員マイページフロントスタック
+new MypageFrontendStack(app, "MypageFrontendStack", { env });
 
 // GitHub Actionsによるデプロイを許可するOICDプロバイダーのデプロイ
 new GithubCiCdStack(app, "GithubCiCdStack", { env });
