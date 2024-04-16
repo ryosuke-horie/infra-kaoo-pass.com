@@ -2,8 +2,8 @@
 import * as cdk from "aws-cdk-lib";
 import { AdminFrontendStack } from "../lib/admin-frontend-stack";
 import { FrontendStack } from "../lib/frontend-stack";
-import { MypageFrontendStack } from "../lib/mypage-frontend-stack";
 import { GithubCiCdStack } from "../lib/github-cicd-stack";
+import { MypageFrontendStack } from "../lib/mypage-frontend-stack";
 
 // cdkによるアプリケーション定義
 const app = new cdk.App();
