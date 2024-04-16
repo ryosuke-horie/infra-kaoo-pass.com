@@ -50,23 +50,23 @@ export class AdminFrontendStack extends Stack {
     // S3バケットポリシーにステートメントを追加する
     adminWebsiteBucket.addToResourcePolicy(adminWebsiteBucketPolicyStatement);
 
-    // // 利用するホストゾーンをドメイン名で取得
-    // // ホストゾーンIDを取得
-    // const hostedZoneId = route53.HostedZone.fromLookup(this, "HostedZoneId", {
-    //   domainName: "admin.kaoo-pass.com",
-    // });
+    // 利用するホストゾーンをドメイン名で取得
+    // ホストゾーンIDを取得
+    const hostedZoneId = route53.HostedZone.fromLookup(this, "HostedZoneId", {
+      domainName: "kaoo-pass.com",
+    });
 
     // 証明書を取得
-    // const certificate = Certificate.fromCertificateArn(
-    //   this,
-    //   "Certificate",
-    //   "arn:aws:acm:us-east-1:905418074681:certificate/01d9e454-018a-4063-96f8-b20ad66ea2c1"
-    // );
+    const certificate = Certificate.fromCertificateArn(
+      this,
+      "Certificate",
+      "arn:aws:acm:us-east-1:905418074681:certificate/361694cc-b668-454e-83ae-4a4f9641951a"
+    );
 
     // CloudFrontディストリビューションを作成する
     const distribution = new aws_cloudfront.Distribution(this, "Distribution", {
-      //   domainNames: ["admin.kaoo-pass.com"],
-      //   certificate,
+        domainNames: ["admin.kaoo-pass.com"],
+        certificate,
       comment: "admin.kaoo-pass.com",
       defaultRootObject: "index.html",
       defaultBehavior: {
@@ -92,12 +92,12 @@ export class AdminFrontendStack extends Stack {
     });
 
     // Route53レコード設定
-    // new route53.ARecord(this, "ARecord", {
-    //   zone: hostedZoneId,
-    //   target: route53.RecordTarget.fromAlias(
-    //     new targets.CloudFrontTarget(distribution)
-    //   ),
-    //   recordName: "kaoo-pass.com",
-    // });
+    new route53.ARecord(this, "ARecord", {
+      zone: hostedZoneId,
+      target: route53.RecordTarget.fromAlias(
+        new targets.CloudFrontTarget(distribution)
+      ),
+      recordName: "admin.kaoo-pass.com",
+    });
   }
 }
