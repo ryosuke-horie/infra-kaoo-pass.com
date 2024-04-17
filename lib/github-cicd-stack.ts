@@ -46,8 +46,8 @@ export class GithubCiCdStack extends Stack {
 							// トリガーを Pull Request に制限。
 							`repo:${GITHUB_OWNER}/${GITHUB_REPO}:ref:refs/heads/main`,
 							`repo:${GITHUB_OWNER}/${GITHUB_REPO_2}:ref:refs/heads/main`,
-                            `repo:${GITHUB_OWNER}/${GITHUB_REPO_3}:ref:refs/heads/main`,
-                            `repo:${GITHUB_OWNER}/${GITHUB_REPO_4}:ref:refs/heads/main`,
+							`repo:${GITHUB_OWNER}/${GITHUB_REPO_3}:ref:refs/heads/main`,
+							`repo:${GITHUB_OWNER}/${GITHUB_REPO_4}:ref:refs/heads/main`,
 						],
 					},
 				},
