@@ -9,7 +9,11 @@ const GITHUB_REPO_2 = process.env.GITHUB_REPO_2 || "";
 const GITHUB_REPO_3 = process.env.GITHUB_REPO_3 || "";
 const GITHUB_REPO_4 = process.env.GITHUB_REPO_4 || "";
 const CLOUDFRONT_ARM = process.env.CLOUDFRONT_ARM || "";
+const CLOUDFRONT_ARM_2 = process.env.CLOUDFRONT_ARM_2 || "";
+const CLOUDFRONT_ARM_3 = process.env.CLOUDFRONT_ARM_3 || "";
 const S3_ARN = process.env.S3_ARN || "";
+const S3_ARN_2 = process.env.S3_ARN_2 || "";
+const S3_ARN_3 = process.env.S3_ARN_3 || "";
 const CDK_QUALIFIER = "hnb659fds"; // 既定値
 
 /**
@@ -84,10 +88,14 @@ export class GithubCiCdStack extends Stack {
 				}),
 				// S3 に関する権限
 				new aws_iam.PolicyStatement({
-					effect: aws_iam.Effect.ALLOW,
-					actions: ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"],
-					resources: [`${S3_ARN}/*`],
-				}),
+                    effect: aws_iam.Effect.ALLOW,
+                    actions: ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"],
+                    resources: [
+                        `${S3_ARN}/*`,
+                        `${S3_ARN_2}/*`,
+                        `${S3_ARN_3}/*`,
+                    ],
+                }),
 				// SSM に関する権限
 				new aws_iam.PolicyStatement({
 					effect: aws_iam.Effect.ALLOW,
@@ -106,18 +114,22 @@ export class GithubCiCdStack extends Stack {
 				}),
 				// CloudFront に関する権限
 				new aws_iam.PolicyStatement({
-					effect: aws_iam.Effect.ALLOW,
-					actions: [
-						"cloudfront:GetDistribution",
-						"cloudfront:GetDistributionConfig",
-						"cloudfront:ListDistributions",
-						"cloudfront:ListStreamingDistributions",
-						"cloudfront:CreateInvalidation",
-						"cloudfront:ListInvalidations",
-						"cloudfront:GetInvalidation",
-					],
-					resources: [CLOUDFRONT_ARM],
-				}),
+                  effect: aws_iam.Effect.ALLOW,
+                  actions: [
+                    "cloudfront:GetDistribution",
+                    "cloudfront:GetDistributionConfig",
+                    "cloudfront:ListDistributions",
+                    "cloudfront:ListStreamingDistributions",
+                    "cloudfront:CreateInvalidation",
+                    "cloudfront:ListInvalidations",
+                    "cloudfront:GetInvalidation",
+                  ],
+                  resources: [
+                    CLOUDFRONT_ARM,
+                    CLOUDFRONT_ARM_2,
+                    CLOUDFRONT_ARM_3,
+                  ],
+                }),
 			],
 		});
 
