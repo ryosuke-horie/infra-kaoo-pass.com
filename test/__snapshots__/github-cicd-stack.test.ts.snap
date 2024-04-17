@@ -175,6 +175,8 @@ exports[`GithubCiCdStack > should create the correct resources 1`] = `
                   "token.actions.githubusercontent.com:sub": [
                     "repo:ryosuke-horie/mem-vision-front:ref:refs/heads/main",
                     "repo:ryosuke-horie/mem-vision-serverless:ref:refs/heads/main",
+                    "repo:ryosuke-horie/admin.kao-pass.com:ref:refs/heads/main",
+                    "repo:ryosuke-horie/mypage.kao-pass.com:ref:refs/heads/main",
                   ],
                 },
               },

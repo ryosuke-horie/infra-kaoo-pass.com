@@ -6,6 +6,8 @@ dotenv.config();
 const GITHUB_OWNER = process.env.GITHUB_OWNER || "";
 const GITHUB_REPO = process.env.GITHUB_REPO || "";
 const GITHUB_REPO_2 = process.env.GITHUB_REPO_2 || "";
+const GITHUB_REPO_3 = process.env.GITHUB_REPO_3 || "";
+const GITHUB_REPO_4 = process.env.GITHUB_REPO_4 || "";
 const CLOUDFRONT_ARM = process.env.CLOUDFRONT_ARM || "";
 const S3_ARN = process.env.S3_ARN || "";
 const CDK_QUALIFIER = "hnb659fds"; // 既定値
@@ -44,6 +46,8 @@ export class GithubCiCdStack extends Stack {
 							// トリガーを Pull Request に制限。
 							`repo:${GITHUB_OWNER}/${GITHUB_REPO}:ref:refs/heads/main`,
 							`repo:${GITHUB_OWNER}/${GITHUB_REPO_2}:ref:refs/heads/main`,
+							`repo:${GITHUB_OWNER}/${GITHUB_REPO_3}:ref:refs/heads/main`,
+							`repo:${GITHUB_OWNER}/${GITHUB_REPO_4}:ref:refs/heads/main`,
 						],
 					},
 				},
