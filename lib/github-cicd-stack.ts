@@ -88,14 +88,10 @@ export class GithubCiCdStack extends Stack {
 				}),
 				// S3 に関する権限
 				new aws_iam.PolicyStatement({
-                    effect: aws_iam.Effect.ALLOW,
-                    actions: ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"],
-                    resources: [
-                        `${S3_ARN}/*`,
-                        `${S3_ARN_2}/*`,
-                        `${S3_ARN_3}/*`,
-                    ],
-                }),
+					effect: aws_iam.Effect.ALLOW,
+					actions: ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"],
+					resources: [`${S3_ARN}/*`, `${S3_ARN_2}/*`, `${S3_ARN_3}/*`],
+				}),
 				// SSM に関する権限
 				new aws_iam.PolicyStatement({
 					effect: aws_iam.Effect.ALLOW,
@@ -114,22 +110,18 @@ export class GithubCiCdStack extends Stack {
 				}),
 				// CloudFront に関する権限
 				new aws_iam.PolicyStatement({
-                  effect: aws_iam.Effect.ALLOW,
-                  actions: [
-                    "cloudfront:GetDistribution",
-                    "cloudfront:GetDistributionConfig",
-                    "cloudfront:ListDistributions",
-                    "cloudfront:ListStreamingDistributions",
-                    "cloudfront:CreateInvalidation",
-                    "cloudfront:ListInvalidations",
-                    "cloudfront:GetInvalidation",
-                  ],
-                  resources: [
-                    CLOUDFRONT_ARM,
-                    CLOUDFRONT_ARM_2,
-                    CLOUDFRONT_ARM_3,
-                  ],
-                }),
+					effect: aws_iam.Effect.ALLOW,
+					actions: [
+						"cloudfront:GetDistribution",
+						"cloudfront:GetDistributionConfig",
+						"cloudfront:ListDistributions",
+						"cloudfront:ListStreamingDistributions",
+						"cloudfront:CreateInvalidation",
+						"cloudfront:ListInvalidations",
+						"cloudfront:GetInvalidation",
+					],
+					resources: [CLOUDFRONT_ARM, CLOUDFRONT_ARM_2, CLOUDFRONT_ARM_3],
+				}),
 			],
 		});
 
