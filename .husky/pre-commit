@@ -1,3 +1,2 @@
 npx @biomejs/biome check --apply bin/
 npx @biomejs/biome check --apply lib/
-npx @biomejs/biome check --apply test/
