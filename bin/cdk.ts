@@ -9,7 +9,8 @@ import { MypageFrontendStack } from "../lib/mypage-frontend-stack";
 const app = new cdk.App();
 const env = { region: "ap-northeast-1", account: "905418074681" };
 
-// フロントエンドアプリケーションスタック
+// ジム用フロントエンドアプリケーションスタック
+// Note ：FrontendStackとして作成したため、リネームするとエラーが発生する
 new AccountFrontendStack(app, "FrontendStack", { env });
 
 // 管理サイトフロントスタック
