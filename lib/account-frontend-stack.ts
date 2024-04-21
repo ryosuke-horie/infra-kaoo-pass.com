@@ -17,7 +17,7 @@ import * as targets from "aws-cdk-lib/aws-route53-targets";
 /**
  * CloudFront + S3でホスティング用のStackを作成する
  */
-export class FrontendStack extends Stack {
+export class AccountFrontendStack extends Stack {
 	constructor(scope: Construct, id: string, props?: StackProps) {
 		super(scope, id, props);
 
@@ -91,14 +91,14 @@ export class FrontendStack extends Stack {
 		const certificate = Certificate.fromCertificateArn(
 			this,
 			"Certificate",
-			"arn:aws:acm:us-east-1:905418074681:certificate/01d9e454-018a-4063-96f8-b20ad66ea2c1",
+			"arn:aws:acm:us-east-1:905418074681:certificate/1e505c38-c2d0-4dde-a2cb-9d1e78cc6779",
 		);
 
 		// CloudFrontディストリビューションを作成する
 		const distribution = new aws_cloudfront.Distribution(this, "Distribution", {
-			domainNames: ["kaoo-pass.com"],
+			domainNames: ["account.kaoo-pass.com"],
 			certificate,
-			comment: "kaoo-pass.com",
+			comment: "account.kaoo-pass.com",
 			defaultRootObject: "index.html",
 			defaultBehavior: {
 				allowedMethods: aws_cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
@@ -145,7 +145,7 @@ export class FrontendStack extends Stack {
 			target: route53.RecordTarget.fromAlias(
 				new targets.CloudFrontTarget(distribution),
 			),
-			recordName: "kaoo-pass.com",
+			recordName: "account.kaoo-pass.com",
 		});
 
 		// 画像用S3へのアクセス権限を追加

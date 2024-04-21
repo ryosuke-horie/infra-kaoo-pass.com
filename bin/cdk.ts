@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import * as cdk from "aws-cdk-lib";
+import { AccountFrontendStack } from "../lib/account-frontend-stack";
 import { AdminFrontendStack } from "../lib/admin-frontend-stack";
-import { FrontendStack } from "../lib/frontend-stack";
 import { GithubCiCdStack } from "../lib/github-cicd-stack";
 import { MypageFrontendStack } from "../lib/mypage-frontend-stack";
 
@@ -9,8 +9,9 @@ import { MypageFrontendStack } from "../lib/mypage-frontend-stack";
 const app = new cdk.App();
 const env = { region: "ap-northeast-1", account: "905418074681" };
 
-// フロントエンドアプリケーションスタック
-new FrontendStack(app, "FrontendStack", { env });
+// ジム用フロントエンドアプリケーションスタック
+// Note ：FrontendStackとして作成したため、リネームするとエラーが発生する
+new AccountFrontendStack(app, "FrontendStack", { env });
 
 // 管理サイトフロントスタック
 new AdminFrontendStack(app, "AdminFrontendStack", { env });
