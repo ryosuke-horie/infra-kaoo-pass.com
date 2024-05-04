@@ -7,7 +7,7 @@ import { MypageFrontendStack } from "../lib/mypage-frontend-stack";
 
 // cdkによるアプリケーション定義
 const app = new cdk.App();
-const env = { region: "ap-northeast-1", account: "905418074681" };
+const env = { region: "ap-northeast-1", account: "************" };
 
 // ジム用フロントエンドアプリケーションスタック
 // Note ：FrontendStackとして作成したため、リネームするとエラーが発生する
